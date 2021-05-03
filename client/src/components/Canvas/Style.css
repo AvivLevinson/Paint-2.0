@@ -1,0 +1,6 @@
+#paintCanvas {
+    width: 600px;
+    height: 400px;
+    border: dashed dimgray 3px;
+    cursor: crosshair;
+}

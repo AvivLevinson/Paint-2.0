@@ -1,0 +1,10 @@
+#imagesList {
+    margin-top: 20px;
+}
+#leftImages img {
+    width: 100px;
+    border: gainsboro dashed 2px;
+    padding: 5px;
+    cursor: pointer;
+
+}
