@@ -7,8 +7,8 @@ const LoadImage = ({loadImageOnCanvas})=>{
 
     const changeCallback  = (event)=>{
         
+        // check if user upload file
         if(event.target.files.length===0){
-            // if the user doesn't upload file return 
             return; 
         }
 

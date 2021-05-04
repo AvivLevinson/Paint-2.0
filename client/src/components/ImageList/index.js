@@ -14,7 +14,6 @@ const ImageList = ({ loadImageOnCanvas, images,setImages }) => {
       
       const images = JSON.parse(new Buffer.from(result));
       setImages((prev) => {
-        console.log(images)
         return [...prev, ...images];
       });
     })();
@@ -24,7 +23,6 @@ const ImageList = ({ loadImageOnCanvas, images,setImages }) => {
 
   const setDrawOnCanvas = (img) => {
     const fileUrl = img.src;
-    console.log(fileUrl)
     const image = new Image();
 
     image.onload = () => {

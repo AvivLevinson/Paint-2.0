@@ -17,18 +17,26 @@ const Sidebar = () => {
   return (
     <div id="leftImages">
       <h3>Server</h3>
+      
       <button
         onClick={() => {
           getCanvasDrawing((image) => {
-            uploadImage(image);
-            const reader = new FileReader();
-            reader.readAsDataURL(image); 
-            reader.onloadend = function() {
-                var base64data = {src:reader.result};                
-                setImages((prev)=>{
-                    return [...prev,base64data ]
-                });
-            }
+              if(uploadImage(image)){
+
+                const reader = new FileReader();
+                reader.readAsDataURL(image); 
+                
+                reader.onloadend = ()=> {
+                  const  imageBase64 = { src:reader.result} ;                
+                  setImages((prev)=>{
+                      return [...prev,imageBase64 ]
+                  });
+              }
+              } else{
+                alert('upload image to server failed ');
+              }
+              
+          
           });
         }}
       >
@@ -36,8 +44,12 @@ const Sidebar = () => {
       </button>
       <button
         onClick={() => {
-          deleteAllImage();
-          setImages([]);
+          if(deleteAllImage()){
+            setImages([]);
+
+          }else {
+            alert("delete image from the server did not succeed");
+          }
         }}
       >
         Delete All

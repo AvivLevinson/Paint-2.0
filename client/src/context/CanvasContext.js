@@ -13,7 +13,7 @@ export const CanvasProvider = ({ children, chagnePos , color}) => {
     const context = canvas.getContext("2d")
     context.lineCap = "round";
     context.strokeStyle = color;
-    context.lineWidth = 5;
+    context.lineWidth = 1;
     contextRef.current = context;
   };
 
@@ -43,6 +43,7 @@ export const CanvasProvider = ({ children, chagnePos , color}) => {
     contextRef.current.stroke();
   };
 
+  // clear canvas 
   const clearCanvas = () => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d")
@@ -50,12 +51,15 @@ export const CanvasProvider = ({ children, chagnePos , color}) => {
     context.fillRect(0, 0, canvas.width, canvas.height)
   }
 
+  // load image to canvas 
   const loadImageOnCanvas = (image)=>{
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d")
     context.drawImage(image, 0, 0, context.canvas.width, context.canvas.height);
   }
 
+
+// change the brush color size of the canvas 
   const setBrushColor = (color)=>{
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d")
@@ -63,6 +67,7 @@ export const CanvasProvider = ({ children, chagnePos , color}) => {
     context.strokeStyle = color;
 
   }
+// change the background color size of the canvas 
 
   const setBackgroundColor = (color)=>{
     const canvas = canvasRef.current;
@@ -72,6 +77,7 @@ export const CanvasProvider = ({ children, chagnePos , color}) => {
 
   }
 
+  // change the brush  size of the canvas 
   const setBrushSize = (range)=>{
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
@@ -79,6 +85,7 @@ export const CanvasProvider = ({ children, chagnePos , color}) => {
 
   }
 
+  // get the image on the canvas, excute callback function from the "save button"  
   const getCanvasDrawing = (cb)=>{
     const canvas = canvasRef.current;
     canvas.toBlob((blob)=>{
@@ -88,6 +95,7 @@ export const CanvasProvider = ({ children, chagnePos , color}) => {
 
   }
 
+  // expose canvas API (function that i build to change canvas props), if we need more function we can wrire them and return and expose by the Provider CanvasProvider component
   return (
     <CanvasContext.Provider
       value={{
@@ -110,4 +118,5 @@ export const CanvasProvider = ({ children, chagnePos , color}) => {
   );
 };
 
+// make custom Hook (cunsome the canvas API ) for Sugar syntax, Component that need to use the API  need to import the useCanvas Hook, but thay need Wrapped by  
 export const useCanvas = () => useContext(CanvasContext);

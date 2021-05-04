@@ -7,22 +7,26 @@ const fullPath = path.join(__dirname, "../db/images.json");
  
 
 const saveFile = async (req,res, next) => {
-  console.log('saveFile function');
   const buf = req.file.buffer;
-  newImage = 'data:image/png;base64,'+ buf.toString('base64');
+  newImageSrc = 'data:image/png;base64,'+ buf.toString('base64');
   
   try {
+
+    // read file 
     const data  = await fsPromisses.readFile(fullPath); 
-    
     const jsonData = JSON.parse(data);
-    const newData = [...jsonData, { src: newImage } ]
+    // push new image to array 
+    const newData = [...jsonData, { src: newImageSrc } ]
+    // write the data to file 
+
     await fsPromisses.writeFile(fullPath,JSON.stringify(newData));
 
-    res.json({msg:"Save image sucsess", saved:true});
+    //send response from the server
+    res.json({msg:"Save image sucsess", sucsess:true});
 
   } catch (error) {
-      console.log(error);
-      res.status(500).json({msg:"Erorr from try catch"})
+      console.log(`Error to save new image on server, Error: ${error}`);
+      res.status(500).json({msg:"Save image  unsucsess", sucsess:false})
   }
 
 
@@ -31,14 +35,8 @@ const saveFile = async (req,res, next) => {
 
 
 const sendFiles = async (req,res, next) => {
-  console.log('utils -> sendFiles function');
+  
   try {
-
-    if (fs.existsSync(fullPath)) {
-      console.log('fs.existsSync');
-
-    }
-
     const result = await fsPromisses.readFile(fullPath);
     res.json({result})
 
@@ -61,7 +59,7 @@ const deleteAll = async (req,res,next) => {
   } catch (error) {
 
     console.log(`Error Save File, Error: ${error}`);
-    res.json({msg:'Faild To Retrive Images'});
+    res.status(500).json({msg:'Faild To Retrive Images'});
 
   }
 
