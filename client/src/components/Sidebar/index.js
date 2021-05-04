@@ -37,6 +37,7 @@ const Sidebar = () => {
       <button
         onClick={() => {
           deleteAllImage();
+          setImages([]);
         }}
       >
         Delete All

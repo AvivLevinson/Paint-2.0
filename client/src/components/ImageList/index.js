@@ -11,11 +11,7 @@ const ImageList = ({ loadImageOnCanvas, images,setImages }) => {
     
     (async () => {
       const result = await fetchImages();
-      if (result.data.length === 0) {
-        console.log("Error To Fetch Data From Server");
-        return;
-      }
-  
+      
       const images = JSON.parse(new Buffer.from(result));
       setImages((prev) => {
         console.log(images)
